@@ -1,0 +1,48 @@
+<% if (isAuth) { %>
+    <div class="d-flex justify-content-center">
+    <div class="card  w-50 mb-2 <% if (form.completed) { %> completed-card <% } else { %> not-completed-card <% } %>">
+      <div class="card-body">
+          
+        <a href="/tasks/<%= form.url %>" class="text-decoration-none text-dark text-center">
+          <h3 class="card-title"><%= form.header %></h3>
+        </a>
+        <div class="d-flex justify-content-center">
+        <img src="/static/images/<%= form.image %>" class="img-fluid" style="max-width: 350px;">
+      </div>
+        <p class="card-text"><%- form.tasks %></p> 
+                <p><b>Author</b> : <%= fullname %></p>
+                <p><b>Categories</b>: 
+                  <% if (form.categories && form.categories.length > 0) { %>
+                    <%= form.categories.map(category => category.name).join(', ') %>
+                  <% } else { %>
+                    No categories
+                  <% } %>
+                </p>
+        <div>
+          <div class="d-flex gap-1">
+            <a href="/edit/<%= form.id %>" class="btn btn-primary">Edit</a>
+            <a href="/delete/<%= form.url %>" class="btn btn-danger">Delete</a>
+            <% if (!form.completed) { %>
+              <form action="/tasks/<%= form.url %>/complete" method="POST" >
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn btn-success">Complete Task</button>
+              </form>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+    <!-- isnt login -->
+    <% } else { %>
+        <div class="d-flex justify-content-center">
+        <div class="card w-50 mb-2">
+            <div class="card-body">
+                <h5 class="card-title text-center"><%= form.header %></h5>
+                </div>
+              </div>
+            </div>
+    <% } %>
+    

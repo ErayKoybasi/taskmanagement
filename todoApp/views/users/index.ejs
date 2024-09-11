@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('../partials/head') %>
+    <style>
+        .hero {
+            height: 100vh;
+            background: url('/static/images/taskmate..png') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            
+        }
+
+        .features {
+            padding: 60px 0;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .margintop{
+            margin-top: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include('../partials/nav') %>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- sidebar start -->
+            <% if (isAuth) { %>
+                <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                    <div class="position-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" aria-current="page" href="/">
+                                    <h4>Home</h4>
+                                    <hr>
+                                </a>
+                            </li>
+
+                            <li class="nav-item d-flex align-items-center">
+                                <a href="/account/index" class="nav-link"><%= `Hello,${fullname.toUpperCase()}` %></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <p class="bi bi-folder"><%- include('../partials/category-lists',{categories, selectedCategory }) %></p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            <% } %>
+
+
+            <!-- main content -->
+            <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
+                <% if (isAuth) { %>
+                    <div class="d-flex justify-content-center flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Tasks</h1>
+                    </div>
+
+                    <% forms.forEach(function(form){ %>
+                        <%- include('../partials/task-cards', {form : form} ) %>
+                    <% }) %>
+                <% } %>
+            </main>
+
+        </div>
+    </div>
+
+<!-- isnt login / homepage -->
+    <% if (!isAuth) { %>
+        
+        <section class="hero">
+            <div class="container">
+ 
+                <h1 class="display-3">Organize Your Tasks Like a Pro</h1>
+                <p class="lead">Manage your tasks efficiently and stay on top of your work with our easy-to-use app.</p>
+                
+                <a href="/account/register" class="btn btn-primary btn-lg margintop">Join Now</a>
+               
+            </div>
+        </section>
+        
+
+    <!-- Features Section -->
+    <section class="features bg-light">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="feature-icon text-primary">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+                    <h3>Easy Task Management</h3>
+                    <p>Quickly create, update, and complete tasks to stay productive.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-icon text-primary">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h3>Track Your Progress</h3>
+                    <p>View your completed tasks and stay on track with your deadlines.</p>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-icon text-primary">
+                        <i class="bi bi-person-check"></i>
+                    </div>
+                    <h3>Create a Category</h3>
+                    <p>Easily organize your tasks by creating categories that suit your needs. Categorize your tasks to streamline your workflow, keep everything in order, and focus on what matters most.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="text-center p-5 bg-primary text-white">
+        <h2>Ready to boost your productivity?</h2>
+        <p>Sign up today and get started with our task management app.</p>
+        <a href="/account/register" class="btn btn-light btn-lg">Get Started</a>
+    </section>
+<% } %>
+    
+ 
+</body>
+
+</html>

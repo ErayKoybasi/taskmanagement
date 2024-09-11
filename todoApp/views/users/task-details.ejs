@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head') %>
+  <style>
+    .completed-card {
+      border: 2px solid #28a745;
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .not-completed-card {
+      border: 2px solid #dc3545;
+      background-color: #f8d7da;
+      color: #ff0019 !important;
+    }
+  </style>
+</head>
+
+<body>
+  <%- include('../partials/nav') %>
+
+  <div class="row">
+    <% if (isAuth) { %>
+      <div class="col-md-6 ms-sm-auto col-lg-12 mt-5">
+        <div class="row d-flex justify-content-center">
+          <div class="col-md-8">
+            <div class="card-body <%= form.completed ? 'completed-card' : 'not-completed-card' %>">
+              <h3 class="card-title text-center">
+                <%= form.header %>
+              </h3>
+              <% if (form.image) { %>
+                <img src="/static/images/<%= form.image %>" class="img-fluid">
+              <% } %>
+              <p class="card-text"><%- form.tasks %></p>
+              <p><b>Author</b> : <%= fullname %></p>
+              <p><b>Categories</b>:
+                <% if (form.categories && form.categories.length > 0) { %>
+                  <%= form.categories.map(category => category.name).join(', ') %>
+                <% } else { %>
+                  No categories
+                <% } %>
+              </p>
+              <div>
+                <div class="d-flex gap-2">
+                <a href="/edit/<%= form.id %>" class="btn btn-primary">Edit</a>
+                <a href="/delete/<%= form.url %>" class="btn btn-danger">Delete</a>
+                <% if (!form.completed) { %>
+                  
+                  <form action="/tasks/<%= form.url %>/complete" method="POST">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn btn-success">Complete Task</button>
+                  </form>
+                <% } %>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    <% } else { %>
+      <h1 class="alert alert-danger text-center">You need to sign up or log in.</h1>
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-primary m-1"><a href="/account/login" class="nav-link">Log In</a></button>
+        <button class="btn btn-warning m-1"><a href="/account/register" class="nav-link">Sign Up</a></button>
+      </div>
+    <% } %>
+  </div>
+</body>
+
+</html>

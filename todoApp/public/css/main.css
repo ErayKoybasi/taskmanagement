@@ -1,0 +1,37 @@
+#sidebar {
+    height: 100vh;
+    padding-top: 20px;
+    border-radius: 15px;
+  }
+  
+  #sidebar .nav-link {
+    font-size: 1.1rem;
+    color: #333;
+    border-radius: 15px;
+  }
+  
+  #sidebar .nav-link.active {
+    background-color: #007bff;
+    color: white;
+    border-radius: 15px;
+  }
+
+
+  .completed-card {
+    border: 2px solid #28a745;
+    background-color: #d4edda; 
+    color: #155724; 
+}
+.not-completed-card {
+    border: 2px solid #dc3545; 
+    background-color: #f8d7da; 
+    color: #ff0019 !important;
+}
+.vertical-hr {
+  border: none; /* Kenarlık kaldırılır */
+  border-left: 2px solid #000; /* Dikey çizgi */
+  height: 10px; /* Çizginin yüksekliği */
+  margin: 20px 20px; /* Çizginin etrafındaki boşluk */
+}
+
+  
